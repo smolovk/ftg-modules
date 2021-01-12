@@ -36,11 +36,19 @@ class CovidStatsUaMod(loader.Module):
 
     def fetch_api(self):
         response = urllib.request.urlopen("https://coronavirus-19-api.herokuapp.com/countries/ukraine")
-        response = response.read().decode("utf-8")
         return response
+
+    def format(self):
+        res = self.fetch_api().read().decode("utf-8")
+        res = eval(res)
+        today_cases = str(res["todayCases"])
+        today_deaths = str(res["todayDeaths"])
+        formatted_res = "Статистика коронавируса в Украине\n\n🤒Новых случаев за сутки: {}\n☠️Человек умерло за сутки: {}".format(today_cases, today_deaths)
+        return formatted_res
+
 
     @loader.unrestricted
     async def covidcmd(self, message):
-        await utils.answer(message, self.fetch_api())
+        await utils.answer(message, self.format())
 
     
