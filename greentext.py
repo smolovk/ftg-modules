@@ -6,9 +6,6 @@ from telethon import events
 from telethon.errors.rpcerrorlist import YouBlockedUserError
 from telethon.tl.types import MessageMediaDocument
 
-from PIL import Image
-from PIL import ImageFont
-from PIL import ImageDraw
 import urllib3
 
 logger = logging.getLogger(__name__)
@@ -25,15 +22,6 @@ class GreenTextMod(loader.Module):
     
     def __init__(self):
         self.name = self.strings['name']
-
-    def add_text(self, text):
-        http = urllib3.PoolManager()
-        url = "https://drive.google.com/uc?export=download&confirm=no_antivirus&id=18q0-nS2VGJ5PNz2FuIbUIFnzP_JlLdDf"
-        img = Image.open(http.request("GET",url).data)
-        draw = ImageDraw.Draw(img)
-        font = ImageFont.truetype("roboto.ttf", 18)
-        draw.text((270, 20), "> "+text,"#7faa36",font=font)
-        img.save('out.jpg')
 
     @loader.unrestricted  # Security setting to change who can use the command (defaults to owner | sudo)
     async def gtcmd(self, message):
