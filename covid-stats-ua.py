@@ -16,7 +16,7 @@
 
 import asyncio
 import logging
-import urllib, json
+import urllib
 
 from .. import loader, utils
 
