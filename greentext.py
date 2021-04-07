@@ -25,20 +25,73 @@ class GreenTextMod(loader.Module):
 
     @loader.unrestricted  # Security setting to change who can use the command (defaults to owner | sudo)
     async def gtcmd(self, message):
-        """ .dmt [текст по желанию] <reply to video, photo or gif>"""
         args = utils.get_args_raw(message)
         reply = await message.get_reply_message()
         if not reply:
             await message.edit("<b>Reply to text</b>")
             return
         try:
-           text = reply.text
+           text = "/gt " + reply.text
         except:
             await message.edit("<b>Only text</b>")
             return           
 
         chat = '@greentextBot'
-        await message.edit('<b>Демотивируем...</b>')
+        await message.edit('<b>Работаем...</b>')
+        async with message.client.conversation(chat) as conv:
+            try:
+                response = conv.wait_event(events.NewMessage(incoming=True, from_users=1648991466))
+                mm = await message.client.send_message(chat, text)  
+                response = await response
+                await mm.delete()
+            except YouBlockedUserError:
+                await message.reply('<b>ass</b>')
+                return
+            await message.delete()
+            await response.delete()
+            await message.client.send_file(message.to_id, response.media, reply_to=await message.get_reply_message())
+        
+    async def rwpcmd(self, message):
+        args = utils.get_args_raw(message)
+        reply = await message.get_reply_message()
+        if not reply:
+            await message.edit("<b>Reply to text</b>")
+            return
+        try:
+           text = "/rwp " + reply.text
+        except:
+            await message.edit("<b>Only text</b>")
+            return           
+
+        chat = '@greentextBot'
+        await message.edit('<b>Работаем...</b>')
+        async with message.client.conversation(chat) as conv:
+            try:
+                response = conv.wait_event(events.NewMessage(incoming=True, from_users=1648991466))
+                mm = await message.client.send_message(chat, text)  
+                response = await response
+                await mm.delete()
+            except YouBlockedUserError:
+                await message.reply('<b>ass</b>')
+                return
+            await message.delete()
+            await response.delete()
+            await message.client.send_file(message.to_id, response.media, reply_to=await message.get_reply_message())
+
+    async def jewcmd(self, message):
+        args = utils.get_args_raw(message)
+        reply = await message.get_reply_message()
+        if not reply:
+            await message.edit("<b>Reply to text</b>")
+            return
+        try:
+           text = "/jew " + reply.text
+        except:
+            await message.edit("<b>Only text</b>")
+            return           
+
+        chat = '@greentextBot'
+        await message.edit('<b>Работаем...</b>')
         async with message.client.conversation(chat) as conv:
             try:
                 response = conv.wait_event(events.NewMessage(incoming=True, from_users=1648991466))
